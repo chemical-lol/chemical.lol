@@ -128,9 +128,9 @@ body::before {
     position: absolute;
     width: 800px;
     height: 800px;
-    background: radial-gradient(circle, rgba(255,255,255,0.55) 0%, rgba(255,255,255,0.15) 45%, rgba(0,0,0,0) 75%);
-    filter: blur(50px);
-    opacity: 0.95;
+    background: radial-gradient(circle, rgba(255,255,255,0.65) 0%, rgba(255,255,255,0.2) 45%, rgba(0,0,0,0) 75%);
+    filter: blur(35px);
+    opacity: 1;
     left: 50%;
     top: 50%;
     --hero-ray-rotation: 0deg;
@@ -141,44 +141,40 @@ body::before {
     z-index: 0;
     border-radius: 50%;
     overflow: hidden;
+    box-shadow: 0 0 180px rgba(255,255,255,0.35);
 }
 
 .hero-light::before,
 .hero-light::after {
     content: '';
     position: absolute;
-    inset: -60%;
-    background: conic-gradient(
-        from 0deg,
-        rgba(255,255,255,0.35) 0deg,
-        transparent 35deg,
-        rgba(255,255,255,0.25) 70deg,
-        transparent 120deg,
-        rgba(255,255,255,0.3) 150deg,
-        transparent 200deg,
-        rgba(255,255,255,0.2) 230deg,
-        transparent 360deg
-    );
-    opacity: 0.9;
-    filter: blur(20px);
+    inset: -50%;
+    background:
+        repeating-conic-gradient(
+            from 0deg,
+            rgba(255,255,255,0.55) 0deg 4deg,
+            transparent 4deg 16deg
+        ),
+        repeating-conic-gradient(
+            from 8deg,
+            rgba(255,255,255,0.35) 0deg 6deg,
+            transparent 6deg 22deg
+        );
+    opacity: 0.85;
+    filter: blur(18px);
     mix-blend-mode: screen;
     transition: opacity 0.8s var(--ease-weighted);
+    mask-image: radial-gradient(circle, rgba(0,0,0,1) 0%, rgba(0,0,0,1) 60%, rgba(0,0,0,0) 90%);
 }
 
 .hero-light::after {
-    background: conic-gradient(
-        from 45deg,
-        transparent 0deg,
-        rgba(255,255,255,0.28) 20deg,
-        transparent 80deg,
-        rgba(255,255,255,0.32) 110deg,
-        transparent 170deg,
-        rgba(255,255,255,0.25) 210deg,
-        transparent 260deg,
-        rgba(255,255,255,0.2) 300deg,
-        transparent 360deg
-    );
-    opacity: 0.6;
+    background:
+        repeating-conic-gradient(
+            from 12deg,
+            transparent 0deg 10deg,
+            rgba(255,255,255,0.4) 10deg 14deg
+        );
+    opacity: 0.55;
 }
 
 .hero-content {
