@@ -93,6 +93,60 @@ document.addEventListener('DOMContentLoaded', () => {
         button.addEventListener('blur', resetTransform);
     });
 
+    const hero = document.querySelector('.hero');
+    const heroLight = document.querySelector('.hero-light');
+    if (hero && heroLight) {
+        let heroRafId;
+        let heroTargetX = hero.offsetWidth / 2;
+        let heroTargetY = hero.offsetHeight / 2;
+        let heroCurrentX = heroTargetX;
+        let heroCurrentY = heroTargetY;
+        const heroEase = 0.12;
+        const heroEpsilon = 0.5;
+
+        const updateHeroLight = () => {
+            heroCurrentX += (heroTargetX - heroCurrentX) * heroEase;
+            heroCurrentY += (heroTargetY - heroCurrentY) * heroEase;
+            heroLight.style.left = `${heroCurrentX}px`;
+            heroLight.style.top = `${heroCurrentY}px`;
+
+            const remaining = Math.abs(heroCurrentX - heroTargetX) + Math.abs(heroCurrentY - heroTargetY);
+            if (remaining > heroEpsilon) {
+                heroRafId = requestAnimationFrame(updateHeroLight);
+            } else {
+                heroRafId = null;
+            }
+        };
+
+        const requestHeroLightUpdate = () => {
+            if (!heroRafId) {
+                heroRafId = requestAnimationFrame(updateHeroLight);
+            }
+        };
+
+        const centerHeroLight = () => {
+            heroTargetX = hero.offsetWidth / 2;
+            heroTargetY = hero.offsetHeight / 2;
+            requestHeroLightUpdate();
+        };
+
+        hero.addEventListener('mousemove', (event) => {
+            const rect = hero.getBoundingClientRect();
+            heroTargetX = event.clientX - rect.left;
+            heroTargetY = event.clientY - rect.top;
+            heroLight.style.opacity = '0.95';
+            requestHeroLightUpdate();
+        });
+
+        hero.addEventListener('mouseleave', () => {
+            heroLight.style.opacity = '0.6';
+            centerHeroLight();
+        });
+
+        window.addEventListener('resize', centerHeroLight);
+        centerHeroLight();
+    }
+
     updateCursorGlow();
 
     const observerOptions = {

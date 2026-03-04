@@ -116,6 +116,21 @@ body::before {
     justify-content: center;
     padding: 4rem;
     position: relative;
+    overflow: hidden;
+}
+
+.hero-light {
+    position: absolute;
+    width: 800px;
+    height: 800px;
+    background: radial-gradient(circle, rgba(255,255,255,0.18) 0%, rgba(255,255,255,0.05) 45%, rgba(0,0,0,0) 70%);
+    filter: blur(40px);
+    opacity: 0.8;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+    transition: opacity 0.4s var(--ease-weighted);
 }
 
 .hero-content {
