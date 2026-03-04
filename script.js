@@ -30,6 +30,69 @@ document.addEventListener('DOMContentLoaded', () => {
         }, 2000);
     });
 
+    const magneticButtons = Array.from(document.querySelectorAll('.magnetic-btn')).filter(button => !button.closest('.nav'));
+    const maxTranslate = 16;
+    const maxRotate = 4;
+    const ease = 0.15;
+    const epsilon = 0.1;
+
+    magneticButtons.forEach(button => {
+        let rafId;
+        let targetX = 0;
+        let targetY = 0;
+        let targetRotate = 0;
+        let currentX = 0;
+        let currentY = 0;
+        let currentRotate = 0;
+
+        const applyTransform = () => {
+            currentX += (targetX - currentX) * ease;
+            currentY += (targetY - currentY) * ease;
+            currentRotate += (targetRotate - currentRotate) * ease;
+
+            button.style.setProperty('--magnetic-translate-x', `${currentX}px`);
+            button.style.setProperty('--magnetic-translate-y', `${currentY}px`);
+            button.style.setProperty('--magnetic-rotation', `${currentRotate}deg`);
+
+            const remainingDistance = Math.abs(currentX - targetX) + Math.abs(currentY - targetY) + Math.abs(currentRotate - targetRotate);
+            if (remainingDistance > epsilon) {
+                rafId = requestAnimationFrame(applyTransform);
+            } else {
+                rafId = null;
+            }
+        };
+
+        const requestTransform = () => {
+            if (!rafId) {
+                rafId = requestAnimationFrame(applyTransform);
+            }
+        };
+
+        const setTargetFromEvent = (event) => {
+            const rect = button.getBoundingClientRect();
+            const relativeX = event.clientX - rect.left;
+            const relativeY = event.clientY - rect.top;
+            const offsetX = (relativeX - rect.width / 2) / (rect.width / 2);
+            const offsetY = (relativeY - rect.height / 2) / (rect.height / 2);
+
+            targetX = Math.max(Math.min(offsetX * maxTranslate, maxTranslate), -maxTranslate);
+            targetY = Math.max(Math.min(offsetY * maxTranslate, maxTranslate), -maxTranslate);
+            targetRotate = (targetX / maxTranslate) * maxRotate;
+            requestTransform();
+        };
+
+        const resetTransform = () => {
+            targetX = 0;
+            targetY = 0;
+            targetRotate = 0;
+            requestTransform();
+        };
+
+        button.addEventListener('mousemove', setTargetFromEvent);
+        button.addEventListener('mouseleave', resetTransform);
+        button.addEventListener('blur', resetTransform);
+    });
+
     updateCursorGlow();
 
     const observerOptions = {
