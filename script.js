@@ -101,14 +101,25 @@ document.addEventListener('DOMContentLoaded', () => {
         let heroTargetY = hero.offsetHeight / 2;
         let heroCurrentX = heroTargetX;
         let heroCurrentY = heroTargetY;
+        let heroTargetAngle = 0;
+        let heroCurrentAngle = 0;
         const heroEase = 0.12;
         const heroEpsilon = 0.5;
+
+        const shortestAngleDiff = (from, to) => {
+            let difference = to - from;
+            while (difference > 180) difference -= 360;
+            while (difference < -180) difference += 360;
+            return difference;
+        };
 
         const updateHeroLight = () => {
             heroCurrentX += (heroTargetX - heroCurrentX) * heroEase;
             heroCurrentY += (heroTargetY - heroCurrentY) * heroEase;
+            heroCurrentAngle += shortestAngleDiff(heroCurrentAngle, heroTargetAngle) * heroEase;
             heroLight.style.left = `${heroCurrentX}px`;
             heroLight.style.top = `${heroCurrentY}px`;
+            heroLight.style.setProperty('--hero-ray-rotation', `${heroCurrentAngle}deg`);
 
             const remaining = Math.abs(heroCurrentX - heroTargetX) + Math.abs(heroCurrentY - heroTargetY);
             if (remaining > heroEpsilon) {
@@ -127,6 +138,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const centerHeroLight = () => {
             heroTargetX = hero.offsetWidth / 2;
             heroTargetY = hero.offsetHeight / 2;
+            heroTargetAngle = 0;
             requestHeroLightUpdate();
         };
 
@@ -134,6 +146,9 @@ document.addEventListener('DOMContentLoaded', () => {
             const rect = hero.getBoundingClientRect();
             heroTargetX = event.clientX - rect.left;
             heroTargetY = event.clientY - rect.top;
+            const offsetX = heroTargetX - hero.offsetWidth / 2;
+            const offsetY = heroTargetY - hero.offsetHeight / 2;
+            heroTargetAngle = Math.atan2(offsetY, offsetX) * (180 / Math.PI);
             heroLight.style.opacity = '0.95';
             requestHeroLightUpdate();
         });
