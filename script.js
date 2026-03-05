@@ -30,6 +30,37 @@ document.addEventListener('DOMContentLoaded', () => {
         }, 2000);
     });
 
+    const snowLayer = document.querySelector('.snow-layer');
+    const createSnowflakes = () => {
+        if (!snowLayer) return;
+        const flakeCount = 80;
+        const fragment = document.createDocumentFragment();
+        for (let i = 0; i < flakeCount; i++) {
+            const flake = document.createElement('span');
+            flake.className = 'snowflake';
+            const size = (Math.random() * 3) + 2;
+            const duration = (Math.random() * 10) + 10;
+            const delay = Math.random() * 10;
+            const drift = (Math.random() - 0.5) * 60;
+            const opacity = Math.random() * 0.6 + 0.3;
+            const blur = Math.random() * 2;
+            const scale = Math.random() * 0.6 + 0.7;
+
+            flake.style.left = `${Math.random() * 100}%`;
+            flake.style.setProperty('--size', `${size}px`);
+            flake.style.setProperty('--duration', `${duration}s`);
+            flake.style.setProperty('--delay', `${delay}s`);
+            flake.style.setProperty('--drift', `${drift}px`);
+            flake.style.setProperty('--opacity', opacity.toString());
+            flake.style.setProperty('--blur', `${blur}px`);
+            flake.style.setProperty('--scale', scale.toString());
+            fragment.appendChild(flake);
+        }
+        snowLayer.appendChild(fragment);
+    };
+
+    createSnowflakes();
+
     const magneticButtons = Array.from(document.querySelectorAll('.magnetic-btn')).filter(button => !button.closest('.nav'));
     const maxTranslate = 16;
     const maxRotate = 4;
