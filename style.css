@@ -379,90 +379,134 @@ body::before {
 
 .faq-grid {
     display: grid;
-    gap: 2rem;
+    gap: 1.5rem;
 }
 
 .faq-item {
-    padding: 2rem;
-    border: 1px solid var(--white);
-    background: var(--black);
-    border-radius: 12px;
-    transition: all 0.4s var(--ease-weighted);
-    position: relative;
+    border: 1px solid rgba(255,255,255,0.2);
+    border-radius: 18px;
+    background: radial-gradient(circle at top left, rgba(255,255,255,0.06), rgba(255,255,255,0.01));
     overflow: hidden;
+    position: relative;
+    transition: border-color 0.4s var(--ease-weighted), transform 0.4s var(--ease-weighted), box-shadow 0.4s var(--ease-weighted), opacity 0.5s var(--ease-weighted);
+    transition-delay: var(--faq-delay, 0ms);
+    opacity: 0;
+    transform: translateY(15px);
+}
+
+.faq-item.visible {
+    opacity: 1;
+    transform: translateY(0);
 }
 
 .faq-item::before {
     content: '';
     position: absolute;
     inset: 0;
-    background: rgba(255,255,255,0.03);
-    transform: translateY(100%);
-    transition: transform 0.4s var(--ease-weighted);
+    background: linear-gradient(120deg, rgba(255,255,255,0.12), transparent 70%);
+    opacity: 0;
+    transition: opacity 0.5s var(--ease-weighted);
 }
 
-.faq-item:hover::before {
-    transform: translateY(0);
-}
-
-.faq-item:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 10px 40px rgba(255,255,255,0.08);
-}
-
+.faq-item:hover,
 .faq-item.active {
+    transform: translateY(-4px);
     border-color: var(--white);
-    background: rgba(255,255,255,0.02);
+    box-shadow: 0 25px 60px rgba(0,0,0,0.35);
+}
+
+.faq-item.active::before {
+    opacity: 1;
 }
 
 .faq-question {
-    font-size: 1.3rem;
-    font-weight: 600;
-    letter-spacing: -0.01em;
-    margin-bottom: 0;
-    background: none;
-    border: none;
-    color: var(--white);
-    text-align: left;
     width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 1.25rem;
+    padding: 1.75rem 2rem;
+    background: transparent;
+    border: none;
+    text-align: left;
+    color: var(--white);
     cursor: pointer;
-    transition: color 0.3s var(--ease-weighted), transform 0.3s var(--ease-weighted);
+    position: relative;
+    z-index: 1;
+    transition: letter-spacing 0.3s var(--ease-weighted), color 0.3s var(--ease-weighted);
 }
 
 .faq-question:hover {
-    letter-spacing: 0.02em;
-    transform: translateX(5px);
+    letter-spacing: 0.01em;
 }
 
-.faq-question::after {
-    content: '+';
+.faq-label {
+    font-size: 0.95rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    opacity: 0.6;
+    min-width: 3rem;
+}
+
+.faq-text {
+    flex: 1;
+    font-size: 1.35rem;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+}
+
+.faq-icon {
+    position: relative;
+    width: 32px;
+    height: 32px;
+}
+
+.icon-line {
     position: absolute;
-    right: 0;
     top: 50%;
-    transform: translateY(-50%);
-    transition: transform 0.4s var(--ease-weighted);
+    left: 50%;
+    width: 18px;
+    height: 2px;
+    background: currentColor;
+    transform-origin: center;
+    transition: transform 0.35s var(--ease-weighted);
 }
 
-.faq-item.active .faq-question::after {
-    transform: translateY(-50%) rotate(45deg);
+.icon-line:first-child {
+    transform: translate(-50%, -50%) rotate(90deg);
+}
+
+.icon-line:last-child {
+    transform: translate(-50%, -50%) rotate(0deg);
+}
+
+.faq-item.active .icon-line:first-child {
+    transform: translate(-50%, -50%) rotate(0deg);
+}
+
+.faq-item.active .icon-line:last-child {
+    transform: translate(-50%, -50%) rotate(180deg);
 }
 
 .faq-answer {
-    font-size: 1rem;
-    font-weight: 400;
-    letter-spacing: 0.02em;
-    line-height: 1.7;
-    opacity: 0.8;
-    max-height: 0;
+    height: 0;
     overflow: hidden;
-    transition: max-height 0.4s var(--ease-weighted), opacity 0.3s var(--ease-weighted);
-    position: relative;
-    z-index: 1;
+    transition: height 0.5s var(--ease-weighted), opacity 0.4s var(--ease-weighted);
+    padding: 0 2rem;
+    opacity: 0;
+}
+
+.faq-answer p {
+    font-size: 1.05rem;
+    letter-spacing: 0.02em;
+    line-height: 1.8;
+    opacity: 0.85;
+    margin: 0 0 1.5rem 0;
 }
 
 .faq-item.active .faq-answer {
-    max-height: 200px;
-    opacity: 0.8;
+    padding-top: 0.5rem;
+    padding-bottom: 1.5rem;
+    opacity: 1;
 }
 
 .shop-section {

@@ -194,39 +194,44 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     const faqItems = document.querySelectorAll('.faq-item');
-    
+    const faqQuestions = document.querySelectorAll('.faq-question');
+
+    const faqObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
+                faqObserver.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.2, rootMargin: '0px 0px -50px 0px' });
+
     faqItems.forEach((item, index) => {
-        item.style.opacity = '0';
-        item.style.transform = 'translateY(20px)';
-        
-        const faqObserver = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    setTimeout(() => {
-                        entry.target.style.opacity = '1';
-                        entry.target.style.transform = 'translateY(0)';
-                    }, index * 100);
-                    faqObserver.unobserve(entry.target);
-                }
-            });
-        }, { threshold: 0.1 });
-        
+        item.style.setProperty('--faq-delay', `${index * 80}ms`);
         faqObserver.observe(item);
     });
 
-    const faqQuestions = document.querySelectorAll('.faq-question');
-    
+    const collapseAll = () => {
+        faqItems.forEach(item => {
+            item.classList.remove('active');
+            const answer = item.querySelector('.faq-answer');
+            answer.style.height = '0px';
+            item.querySelector('.faq-question').setAttribute('aria-expanded', 'false');
+        });
+    };
+
     faqQuestions.forEach(question => {
         question.addEventListener('click', () => {
             const faqItem = question.closest('.faq-item');
+            const answer = faqItem.querySelector('.faq-answer');
             const isActive = faqItem.classList.contains('active');
-            
-            faqQuestions.forEach(q => {
-                q.closest('.faq-item').classList.remove('active');
-            });
-            
+
+            collapseAll();
+
             if (!isActive) {
                 faqItem.classList.add('active');
+                const scrollHeight = answer.scrollHeight;
+                answer.style.height = `${scrollHeight}px`;
+                question.setAttribute('aria-expanded', 'true');
             }
         });
     });
