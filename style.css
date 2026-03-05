@@ -128,8 +128,8 @@ body::before {
     position: absolute;
     width: 800px;
     height: 800px;
-    background: radial-gradient(circle, rgba(255,255,255,0.65) 0%, rgba(255,255,255,0.2) 45%, rgba(0,0,0,0) 75%);
-    filter: blur(35px);
+    background: radial-gradient(circle, rgba(255,255,255,0.7) 0%, rgba(255,255,255,0.25) 45%, rgba(0,0,0,0) 75%);
+    filter: blur(30px);
     opacity: 1;
     left: 50%;
     top: 50%;
@@ -140,41 +140,49 @@ body::before {
     mix-blend-mode: screen;
     z-index: 0;
     border-radius: 50%;
-    overflow: hidden;
-    box-shadow: 0 0 180px rgba(255,255,255,0.35);
+    overflow: visible;
+    box-shadow: 0 0 180px rgba(255,255,255,0.4);
 }
 
 .hero-light::before,
 .hero-light::after {
     content: '';
     position: absolute;
-    inset: -50%;
-    background:
-        repeating-conic-gradient(
-            from 0deg,
-            rgba(255,255,255,0.55) 0deg 4deg,
-            transparent 4deg 16deg
-        ),
-        repeating-conic-gradient(
-            from 8deg,
-            rgba(255,255,255,0.35) 0deg 6deg,
-            transparent 6deg 22deg
-        );
-    opacity: 0.85;
-    filter: blur(18px);
+    inset: -20% -80%;
+    opacity: 0.9;
     mix-blend-mode: screen;
     transition: opacity 0.8s var(--ease-weighted);
-    mask-image: radial-gradient(circle, rgba(0,0,0,1) 0%, rgba(0,0,0,1) 60%, rgba(0,0,0,0) 90%);
+}
+
+.hero-light::after {
+    inset: -30% -100%;
+}
+
+.hero-light::before {
+    background:
+        repeating-linear-gradient(
+            90deg,
+            rgba(255,255,255,0.5) 0px,
+            rgba(255,255,255,0.5) 18px,
+            transparent 18px,
+            transparent 80px
+        ),
+        linear-gradient(90deg, rgba(255,255,255,0.4), rgba(255,255,255,0));
+    filter: blur(14px);
 }
 
 .hero-light::after {
     background:
-        repeating-conic-gradient(
-            from 12deg,
-            transparent 0deg 10deg,
-            rgba(255,255,255,0.4) 10deg 14deg
-        );
-    opacity: 0.55;
+        repeating-linear-gradient(
+            90deg,
+            transparent 0px,
+            transparent 24px,
+            rgba(255,255,255,0.55) 24px,
+            rgba(255,255,255,0.55) 36px
+        ),
+        linear-gradient(90deg, rgba(255,255,255,0.35), rgba(255,255,255,0));
+    filter: blur(25px);
+    opacity: 0.6;
 }
 
 .hero-content {
