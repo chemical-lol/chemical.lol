@@ -116,80 +116,11 @@ body::before {
     justify-content: center;
     padding: 4rem;
     position: relative;
-    overflow: hidden;
-    background-image:
-        radial-gradient(circle at 30% 20%, rgba(255,255,255,0.08) 0%, transparent 45%),
-        radial-gradient(circle at 70% 80%, rgba(255,255,255,0.05) 0%, transparent 55%),
-        linear-gradient(180deg, rgba(3,3,3,1) 0%, rgba(0,0,0,1) 100%);
-    isolation: isolate;
-}
-
-.hero-light {
-    position: absolute;
-    width: 800px;
-    height: 800px;
-    background: radial-gradient(circle, rgba(255,255,255,0.7) 0%, rgba(255,255,255,0.25) 45%, rgba(0,0,0,0) 75%);
-    filter: blur(30px);
-    opacity: 1;
-    left: 50%;
-    top: 50%;
-    --hero-ray-rotation: 0deg;
-    transform: translate(-50%, -50%) rotate(var(--hero-ray-rotation));
-    pointer-events: none;
-    transition: opacity 0.4s var(--ease-weighted);
-    mix-blend-mode: screen;
-    z-index: 0;
-    border-radius: 50%;
-    overflow: visible;
-    box-shadow: 0 0 180px rgba(255,255,255,0.4);
-}
-
-.hero-light::before,
-.hero-light::after {
-    content: '';
-    position: absolute;
-    inset: -20% -80%;
-    opacity: 0.9;
-    mix-blend-mode: screen;
-    transition: opacity 0.8s var(--ease-weighted);
-}
-
-.hero-light::after {
-    inset: -30% -100%;
-}
-
-.hero-light::before {
-    background:
-        repeating-linear-gradient(
-            90deg,
-            rgba(255,255,255,0.5) 0px,
-            rgba(255,255,255,0.5) 18px,
-            transparent 18px,
-            transparent 80px
-        ),
-        linear-gradient(90deg, rgba(255,255,255,0.4), rgba(255,255,255,0));
-    filter: blur(14px);
-}
-
-.hero-light::after {
-    background:
-        repeating-linear-gradient(
-            90deg,
-            transparent 0px,
-            transparent 24px,
-            rgba(255,255,255,0.55) 24px,
-            rgba(255,255,255,0.55) 36px
-        ),
-        linear-gradient(90deg, rgba(255,255,255,0.35), rgba(255,255,255,0));
-    filter: blur(25px);
-    opacity: 0.6;
 }
 
 .hero-content {
     text-align: center;
     max-width: 1200px;
-    position: relative;
-    z-index: 1;
 }
 
 .hero-title {
@@ -198,6 +129,40 @@ body::before {
     letter-spacing: -0.04em;
     line-height: 0.9;
     margin-bottom: 2rem;
+}
+
+.light-ray-text {
+    position: relative;
+    overflow: hidden;
+    color: var(--white);
+}
+
+.light-ray-text::after {
+    content: '';
+    position: absolute;
+    inset: -20% -5%;
+    background: linear-gradient(75deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.4) 35%, rgba(255,255,255,0.1) 55%, rgba(255,255,255,0) 70%);
+    transform: skewX(-15deg);
+    animation: lightSweep 3.4s linear infinite;
+    mix-blend-mode: screen;
+    pointer-events: none;
+}
+
+@keyframes lightSweep {
+    0% {
+        transform: translateX(-120%) skewX(-15deg);
+        opacity: 0;
+    }
+    15% {
+        opacity: 1;
+    }
+    85% {
+        opacity: 1;
+    }
+    100% {
+        transform: translateX(120%) skewX(-15deg);
+        opacity: 0;
+    }
 }
 
 .hero-line {
