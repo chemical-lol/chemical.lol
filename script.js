@@ -239,49 +239,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    const faqItems = document.querySelectorAll('.faq-item');
-    const faqQuestions = document.querySelectorAll('.faq-question');
-
-    const faqObserver = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add('visible');
-                faqObserver.unobserve(entry.target);
-            }
-        });
-    }, { threshold: 0.2, rootMargin: '0px 0px -50px 0px' });
-
-    faqItems.forEach((item, index) => {
-        item.style.setProperty('--faq-delay', `${index * 80}ms`);
-        faqObserver.observe(item);
-    });
-
-    const collapseAll = () => {
-        faqItems.forEach(item => {
-            item.classList.remove('active');
-            const answer = item.querySelector('.faq-answer');
-            answer.style.height = '0px';
-            item.querySelector('.faq-question').setAttribute('aria-expanded', 'false');
-        });
-    };
-
-    faqQuestions.forEach(question => {
-        question.addEventListener('click', () => {
-            const faqItem = question.closest('.faq-item');
-            const answer = faqItem.querySelector('.faq-answer');
-            const isActive = faqItem.classList.contains('active');
-
-            collapseAll();
-
-            if (!isActive) {
-                faqItem.classList.add('active');
-                const scrollHeight = answer.scrollHeight;
-                answer.style.height = `${scrollHeight}px`;
-                question.setAttribute('aria-expanded', 'true');
-            }
-        });
-    });
-
     const heroLines = document.querySelectorAll('.hero-line');
     heroLines.forEach((line, index) => {
         line.style.animationDelay = `${0.1 + (index * 0.1)}s`;

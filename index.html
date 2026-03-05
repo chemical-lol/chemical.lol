@@ -90,59 +90,45 @@
 
         <section id="faq" class="faq-section">
         <div class="section-container">
-            <h2 class="section-title"><span class="underline-text">Technical FAQ</span></h2>
-            <div class="faq-grid">
-                <div class="faq-item">
-                    <button class="faq-question magnetic-btn" aria-expanded="false">
-                        <span class="faq-label">01</span>
-                        <span class="faq-text">Is this detected?</span>
-                        <span class="faq-icon" aria-hidden="true">
-                            <span class="icon-line"></span>
-                            <span class="icon-line"></span>
-                        </span>
-                    </button>
-                    <div class="faq-answer">
-                        <p>Our kernel-level execution bypasses standard detection vectors. We maintain continuous monitoring of anti-cheat signatures.</p>
-                    </div>
+            <div class="faq-layout">
+                <div class="faq-intro">
+                    <h2 class="section-title"><span class="underline-text">Technical FAQ</span></h2>
+                    <p class="faq-intro-text">Straight answers for the most common questions we get from operators and builders. No marketing filler—just the details you need before deploying chemical.lol.</p>
+                    <ul class="faq-highlights">
+                        <li>Kernel-first security posture</li>
+                        <li>Instant deployment workflows</li>
+                        <li>Hands-off privacy stance</li>
+                    </ul>
                 </div>
-                <div class="faq-item">
-                    <button class="faq-question magnetic-btn" aria-expanded="false">
-                        <span class="faq-label">02</span>
-                        <span class="faq-text">What are the system requirements?</span>
-                        <span class="faq-icon" aria-hidden="true">
-                            <span class="icon-line"></span>
-                            <span class="icon-line"></span>
-                        </span>
-                    </button>
-                    <div class="faq-answer">
-                        <p>Windows 10/11. DirectX 11 compatible GPU. 4GB RAM minimum. Optimized for low-end hardware.</p>
-                    </div>
-                </div>
-                <div class="faq-item">
-                    <button class="faq-question magnetic-btn" aria-expanded="false">
-                        <span class="faq-label">03</span>
-                        <span class="faq-text">How do I install?</span>
-                        <span class="faq-icon" aria-hidden="true">
-                            <span class="icon-line"></span>
-                            <span class="icon-line"></span>
-                        </span>
-                    </button>
-                    <div class="faq-answer">
-                        <p>Download the executable. Run as administrator. Follow the on-screen instructions. Installation completes in under 10 seconds.</p>
-                    </div>
-                </div>
-                <div class="faq-item">
-                    <button class="faq-question magnetic-btn" aria-expanded="false">
-                        <span class="faq-label">04</span>
-                        <span class="faq-text">Is my data safe?</span>
-                        <span class="faq-icon" aria-hidden="true">
-                            <span class="icon-line"></span>
-                            <span class="icon-line"></span>
-                        </span>
-                    </button>
-                    <div class="faq-answer">
-                        <p>Zero telemetry collection. No data transmission. Your system remains yours. We operate on a strict privacy-first architecture.</p>
-                    </div>
+                <div class="faq-entries">
+                    <article class="faq-entry">
+                        <header>
+                            <span class="faq-pill">Detection</span>
+                            <h3>Will anti-cheat engines flag it?</h3>
+                        </header>
+                        <p>We operate entirely in kernel space with randomized memory layouts. Signatures are regenerated on boot and we track emerging heuristics daily. If a vendor flips a new rule, you’ll see an alert in the client before they do.</p>
+                    </article>
+                    <article class="faq-entry">
+                        <header>
+                            <span class="faq-pill">Hardware</span>
+                            <h3>What rigs are supported?</h3>
+                        </header>
+                        <p>Windows 10/11, DirectX 11 GPUs, and 4GB RAM is the baseline. The loader auto-detects virtualization, TPM status, and secure boot toggles so you never have to reflash anything.</p>
+                    </article>
+                    <article class="faq-entry">
+                        <header>
+                            <span class="faq-pill">Setup</span>
+                            <h3>How long does onboarding take?</h3>
+                        </header>
+                        <p>Download, run as admin, confirm the hardware fingerprint. The injector stages itself in under 10 seconds and you can swap profiles without relaunching.</p>
+                    </article>
+                    <article class="faq-entry">
+                        <header>
+                            <span class="faq-pill">Privacy</span>
+                            <h3>What data leaves my machine?</h3>
+                        </header>
+                        <p>None. There is no telemetry layer, no analytics SDK, and no call-home packets. Updates are signed and distributed via diff bundles you can inspect locally.</p>
+                    </article>
                 </div>
             </div>
         </div>

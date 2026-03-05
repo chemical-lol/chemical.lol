@@ -32,11 +32,10 @@ body {
 }
 
 .snow-layer {
-    position: absolute;
-    top: 0;
-    left: 0;
+    position: fixed;
+    inset: 0;
     width: 100%;
-    height: var(--snow-height, 120vh);
+    height: 100vh;
     pointer-events: none;
     overflow: hidden;
     z-index: 0;
@@ -426,137 +425,77 @@ body::before {
     background: var(--black);
 }
 
-.faq-grid {
+
+.faq-layout {
+    display: grid;
+    grid-template-columns: minmax(260px, 1fr) 2fr;
+    gap: 4rem;
+    align-items: start;
+}
+
+.faq-intro-text {
+    font-size: 1.1rem;
+    line-height: 1.8;
+    opacity: 0.8;
+    margin-bottom: 2rem;
+}
+
+.faq-highlights {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    font-size: 0.95rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    opacity: 0.6;
+}
+
+.faq-entries {
     display: grid;
     gap: 1.5rem;
 }
 
-
-.faq-item {
+.faq-entry {
     border: 1px solid rgba(255,255,255,0.2);
     border-radius: 18px;
-    background: radial-gradient(circle at top left, rgba(255,255,255,0.04), rgba(255,255,255,0.01));
-    overflow: hidden;
-    position: relative;
-    transition: border-color 0.2s var(--ease-weighted), background 0.2s var(--ease-weighted), box-shadow 0.2s var(--ease-weighted), opacity 0.4s var(--ease-weighted);
-    transition-delay: var(--faq-delay, 0ms);
-    opacity: 0;
-    transform: none;
+    padding: 2rem;
+    background: radial-gradient(circle at top left, rgba(255,255,255,0.05), rgba(255,255,255,0.01));
 }
 
-.faq-item.visible {
-    opacity: 1;
-    transform: none;
-}
-
-.faq-item::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(120deg, rgba(255,255,255,0.12), transparent 70%);
-    opacity: 0;
-    transition: opacity 0.5s var(--ease-weighted);
-}
-
-.faq-item:hover,
-.faq-item.active {
-    border-color: rgba(255,255,255,0.65);
-    box-shadow: 0 10px 30px rgba(0,0,0,0.25);
-    background: radial-gradient(circle at top left, rgba(255,255,255,0.07), rgba(255,255,255,0.01));
-}
-
-.faq-item.active::before {
-    opacity: 1;
-}
-
-.faq-question {
-    width: 100%;
+.faq-entry header {
     display: flex;
     align-items: center;
-    gap: 1.25rem;
-    padding: 1.75rem 2rem;
-    background: transparent;
-    border: none;
-    text-align: left;
-    color: var(--white);
-    cursor: pointer;
-    position: relative;
-    z-index: 1;
-    transition: color 0.2s var(--ease-weighted);
+    gap: 1rem;
+    margin-bottom: 1rem;
 }
 
-.faq-question:hover {
-    color: rgba(255,255,255,0.85);
-}
-
-.faq-label {
-    font-size: 0.95rem;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    opacity: 0.6;
-    min-width: 3rem;
-}
-
-.faq-text {
-    flex: 1;
-    font-size: 1.35rem;
-    font-weight: 600;
+.faq-entry h3 {
+    font-size: 1.4rem;
     letter-spacing: -0.01em;
+    margin: 0;
 }
 
-.faq-icon {
-    position: relative;
-    width: 32px;
-    height: 32px;
+.faq-pill {
+    font-size: 0.8rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    padding: 0.35rem 0.8rem;
+    border: 1px solid rgba(255,255,255,0.4);
+    border-radius: 999px;
 }
 
-.icon-line {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 18px;
-    height: 2px;
-    background: currentColor;
-    transform-origin: center;
-    transition: transform 0.25s var(--ease-weighted);
-}
-
-.icon-line:first-child {
-    transform: translate(-50%, -50%) rotate(90deg);
-}
-
-.icon-line:last-child {
-    transform: translate(-50%, -50%) rotate(0deg);
-}
-
-.faq-item.active .icon-line:first-child {
-    transform: translate(-50%, -50%) rotate(0deg);
-}
-
-.faq-item.active .icon-line:last-child {
-    transform: translate(-50%, -50%) rotate(180deg);
-}
-
-.faq-answer {
-    height: 0;
-    overflow: hidden;
-    transition: height 0.18s var(--ease-weighted), opacity 0.18s var(--ease-weighted);
-    padding: 0 2rem;
-    opacity: 0;
-}
-
-.faq-answer p {
-    font-size: 1.05rem;
-    letter-spacing: 0.02em;
+.faq-entry p {
+    font-size: 1rem;
     line-height: 1.8;
     opacity: 0.85;
-    margin: 0 0 1.5rem 0;
 }
 
-.faq-item.active .faq-answer {
-    padding-top: 0.25rem;
-    padding-bottom: 0.7rem;
-    opacity: 1;
+@media (max-width: 900px) {
+    .faq-layout {
+        grid-template-columns: 1fr;
+        gap: 2.5rem;
+    }
 }
 
 .shop-section {
