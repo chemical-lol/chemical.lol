@@ -244,6 +244,29 @@ document.addEventListener('DOMContentLoaded', () => {
         line.style.animationDelay = `${0.1 + (index * 0.1)}s`;
     });
 
+    const faqEntries = document.querySelectorAll('.faq-entry');
+
+    faqEntries.forEach(entry => {
+        const toggle = entry.querySelector('.faq-toggle');
+        if (!toggle) return;
+
+        toggle.addEventListener('click', () => {
+            const isActive = entry.classList.contains('active');
+            faqEntries.forEach(item => {
+                item.classList.remove('active');
+                const itemToggle = item.querySelector('.faq-toggle');
+                if (itemToggle) {
+                    itemToggle.setAttribute('aria-expanded', 'false');
+                }
+            });
+
+            if (!isActive) {
+                entry.classList.add('active');
+                toggle.setAttribute('aria-expanded', 'true');
+            }
+        });
+    });
+
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function (e) {
             e.preventDefault();
