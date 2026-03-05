@@ -45,8 +45,8 @@ document.addEventListener('DOMContentLoaded', () => {
             const flake = document.createElement('span');
             flake.className = 'snowflake';
             const size = (Math.random() * 3) + 2;
-            const duration = (Math.random() * 10) + 10;
-            const delay = Math.random() * 10;
+            const duration = (Math.random() * 8) + 10;
+            const delay = Math.random() * 4;
             const drift = (Math.random() - 0.5) * 60;
             const opacity = Math.random() * 0.6 + 0.3;
             const blur = Math.random() * 2;
@@ -63,6 +63,12 @@ document.addEventListener('DOMContentLoaded', () => {
             fragment.appendChild(flake);
         }
         snowLayer.appendChild(fragment);
+
+        requestAnimationFrame(() => {
+            snowLayer.querySelectorAll('.snowflake').forEach(flake => {
+                flake.style.animationPlayState = 'running';
+            });
+        });
     };
 
     setSnowHeight();

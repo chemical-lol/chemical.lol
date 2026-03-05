@@ -438,15 +438,15 @@ body::before {
     background: radial-gradient(circle at top left, rgba(255,255,255,0.04), rgba(255,255,255,0.01));
     overflow: hidden;
     position: relative;
-    transition: border-color 0.25s var(--ease-weighted), transform 0.25s var(--ease-weighted), box-shadow 0.25s var(--ease-weighted), opacity 0.4s var(--ease-weighted);
+    transition: border-color 0.2s var(--ease-weighted), background 0.2s var(--ease-weighted), box-shadow 0.2s var(--ease-weighted), opacity 0.4s var(--ease-weighted);
     transition-delay: var(--faq-delay, 0ms);
     opacity: 0;
-    transform: translateY(2px);
+    transform: none;
 }
 
 .faq-item.visible {
     opacity: 1;
-    transform: translateY(0);
+    transform: none;
 }
 
 .faq-item::before {
@@ -460,9 +460,9 @@ body::before {
 
 .faq-item:hover,
 .faq-item.active {
-    transform: translateY(0);
-    border-color: rgba(255,255,255,0.6);
-    box-shadow: 0 6px 18px rgba(0,0,0,0.3);
+    border-color: rgba(255,255,255,0.65);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.25);
+    background: radial-gradient(circle at top left, rgba(255,255,255,0.07), rgba(255,255,255,0.01));
 }
 
 .faq-item.active::before {
@@ -540,7 +540,7 @@ body::before {
 .faq-answer {
     height: 0;
     overflow: hidden;
-    transition: height 0.2s var(--ease-weighted), opacity 0.2s var(--ease-weighted);
+    transition: height 0.18s var(--ease-weighted), opacity 0.18s var(--ease-weighted);
     padding: 0 2rem;
     opacity: 0;
 }
