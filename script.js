@@ -31,6 +31,12 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     const snowLayer = document.querySelector('.snow-layer');
+    const setSnowHeight = () => {
+        if (!snowLayer) return;
+        const fullHeight = document.documentElement.scrollHeight + 200;
+        document.documentElement.style.setProperty('--snow-height', `${fullHeight}px`);
+    };
+
     const createSnowflakes = () => {
         if (!snowLayer) return;
         const flakeCount = 80;
@@ -59,7 +65,10 @@ document.addEventListener('DOMContentLoaded', () => {
         snowLayer.appendChild(fragment);
     };
 
+    setSnowHeight();
     createSnowflakes();
+    window.addEventListener('resize', setSnowHeight);
+    window.addEventListener('orientationchange', setSnowHeight);
 
     const magneticButtons = Array.from(document.querySelectorAll('.magnetic-btn')).filter(button => !button.closest('.nav'));
     const maxTranslate = 16;

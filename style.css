@@ -9,6 +9,7 @@
     --white: #FFFFFF;
     --ease-weighted: cubic-bezier(0.16, 1, 0.3, 1);
     --ease-sharp: cubic-bezier(0.25, 1, 0.5, 1);
+    --snow-height: 120vh;
 }
 
 body {
@@ -22,11 +23,20 @@ body {
         radial-gradient(circle at 80% 30%, rgba(255,255,255,0.05) 0%, transparent 50%),
         radial-gradient(circle at 50% 80%, rgba(255,255,255,0.04) 0%, transparent 55%);
     position: relative;
+    min-height: 100vh;
+}
+
+.main-content {
+    position: relative;
+    z-index: 1;
 }
 
 .snow-layer {
-    position: fixed;
-    inset: 0;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: var(--snow-height, 120vh);
     pointer-events: none;
     overflow: hidden;
     z-index: 0;
@@ -38,25 +48,27 @@ body {
     width: var(--size, 4px);
     height: var(--size, 4px);
     border-radius: 50%;
-    background: radial-gradient(circle, rgba(255,255,255,0.95), rgba(255,255,255,0.1));
+    background: radial-gradient(circle, rgba(255,255,255,1), rgba(255,255,255,0));
+    box-shadow: 0 0 6px rgba(255,255,255,0.5);
     opacity: 0;
-    animation: snowFall var(--duration, 14s) linear infinite;
+    animation: snowFall var(--duration, 10s) linear infinite;
     animation-delay: var(--delay, 0s);
     left: 0;
     filter: blur(var(--blur, 0px));
     transform: translateZ(0);
+    mix-blend-mode: screen;
 }
 
 @keyframes snowFall {
     0% {
-        transform: translate3d(0, -10%, 0) scale(var(--scale, 1));
+        transform: translate3d(0, calc(var(--snow-height, 120vh) * -0.1), 0) scale(var(--scale, 1));
         opacity: 0;
     }
     10% {
-        opacity: var(--opacity, 0.7);
+        opacity: var(--opacity, 0.85);
     }
     100% {
-        transform: translate3d(var(--drift, 0px), 110vh, 0) scale(var(--scale, 1));
+        transform: translate3d(var(--drift, 0px), var(--snow-height, 120vh), 0) scale(var(--scale, 1));
         opacity: 0;
     }
 }
@@ -423,13 +435,13 @@ body::before {
 .faq-item {
     border: 1px solid rgba(255,255,255,0.2);
     border-radius: 18px;
-    background: radial-gradient(circle at top left, rgba(255,255,255,0.06), rgba(255,255,255,0.01));
+    background: radial-gradient(circle at top left, rgba(255,255,255,0.04), rgba(255,255,255,0.01));
     overflow: hidden;
     position: relative;
-    transition: border-color 0.35s var(--ease-weighted), transform 0.35s var(--ease-weighted), box-shadow 0.35s var(--ease-weighted), opacity 0.45s var(--ease-weighted);
+    transition: border-color 0.25s var(--ease-weighted), transform 0.25s var(--ease-weighted), box-shadow 0.25s var(--ease-weighted), opacity 0.4s var(--ease-weighted);
     transition-delay: var(--faq-delay, 0ms);
     opacity: 0;
-    transform: translateY(8px);
+    transform: translateY(2px);
 }
 
 .faq-item.visible {
@@ -448,9 +460,9 @@ body::before {
 
 .faq-item:hover,
 .faq-item.active {
-    transform: translateY(-2px);
-    border-color: var(--white);
-    box-shadow: 0 15px 45px rgba(0,0,0,0.35);
+    transform: translateY(0);
+    border-color: rgba(255,255,255,0.6);
+    box-shadow: 0 6px 18px rgba(0,0,0,0.3);
 }
 
 .faq-item.active::before {
@@ -470,11 +482,11 @@ body::before {
     cursor: pointer;
     position: relative;
     z-index: 1;
-    transition: letter-spacing 0.3s var(--ease-weighted), color 0.3s var(--ease-weighted);
+    transition: color 0.2s var(--ease-weighted);
 }
 
 .faq-question:hover {
-    letter-spacing: 0.005em;
+    color: rgba(255,255,255,0.85);
 }
 
 .faq-label {
@@ -506,7 +518,7 @@ body::before {
     height: 2px;
     background: currentColor;
     transform-origin: center;
-    transition: transform 0.35s var(--ease-weighted);
+    transition: transform 0.25s var(--ease-weighted);
 }
 
 .icon-line:first-child {
@@ -528,7 +540,7 @@ body::before {
 .faq-answer {
     height: 0;
     overflow: hidden;
-    transition: height 0.35s var(--ease-weighted), opacity 0.35s var(--ease-weighted);
+    transition: height 0.2s var(--ease-weighted), opacity 0.2s var(--ease-weighted);
     padding: 0 2rem;
     opacity: 0;
 }
@@ -542,8 +554,8 @@ body::before {
 }
 
 .faq-item.active .faq-answer {
-    padding-top: 0.5rem;
-    padding-bottom: 1.25rem;
+    padding-top: 0.25rem;
+    padding-bottom: 0.7rem;
     opacity: 1;
 }
 
